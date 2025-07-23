@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Produits{% endblock title %}
+
+{% block content %}
+<h2>Produits</h2>
+
+<!-- Filtre catégorie -->
+<form method="get">
+    <label for="category">Catégorie :</label>
+    <select name="category" onchange="this.form.submit()">
+        <option value="">Toutes</option>
+        {% for cat in categories %}
+        <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>
+            {{ cat.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+
+
+
+</form>
+
+
+<hr>
+
+{% if produits %}
+<ul>
+    <li><img src="{{ product.image }}" alt="{{ product.title }}" style="width:100%; max-width:600px;">
+    </li>
+    {% for p in produits %}
+    <li>
+        <a href="{% url 'product_detail' p.pk %}">{{ p.title }}</a>
+        — {{ p.price }} €
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Aucun produit disponible.</p>
+{% endif %}
+{% endblock content %}

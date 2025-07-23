@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ produit.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ produit.title }}</h1>
+
+{% if produit.image %}
+<img src="{{ produit.image }}" alt="{{ produit.title }}" width="300" height="200">
+{% else %}
+<p>Pas d’image disponible</p>
+{% endif %}
+
+<p>{{ produit.description }}</p>
+
+<p><strong>Prix :</strong> {{ produit.price }} €</p>
+<p><strong>Stock :</strong> {{ produit.stock }}</p>
+<p><strong>Ajouté le :</strong> {{ produit.created_at|date:"d M Y" }}</p>
+
+<p><a href="{% url 'product_list' %}">← Retour à la boutique</a></p>
+{% endblock %}

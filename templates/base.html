@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Bootique{% endblock title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <h1><a href="{% url 'home' %}">Boutique</a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>Bonjour {{ user.username }}</li>
+
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Déconnexion</button>
+                </form>
+
+                <li><a href="{% url 'cart' %}">Panier</a></li>
+                <li><a href="{% url 'account' %}">Mon compte</a></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Connexion</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+            </li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+        <p>&copy; {{ now|date:"Y" }} Bootique.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+ADMIN
+usrname : admin
+mdp : admin
+-------------------
+user 1
+username : test
+mdp : test123456
+-------------------
+
+Utilisation des modules Faker et Django-seed pour les produits
+
+-------------------
+FONCTIONNALITES
+✅ - Connexion de l'utilisateur
+- Ajouter / Supprimer des articles dans le panier
+- Paiement : clic sur payer qui vide le panier et change le statut de commande
+
+PAGES
+✅ - Homepage avec liste des produits + filtre par catégories
+✅ - page article
+- page de connexion
+- panier
+- page compte client
+
+
+SUITE
+- Dashboard (Manager et QuerySet) avec : la liste des commandes qui ont été validées et le CA total
+- Recevoir une notification à la validation d’une commande (Signals)
+
+
+<!-- Bouton d'ajout au panier (pour plus tard) -->
+<!-- <form action="{% url 'add_to_cart' produit.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Ajouter au panier</button>
+</form> -->
