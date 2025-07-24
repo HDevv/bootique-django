@@ -18,5 +18,11 @@
 <p><strong>Stock :</strong> {{ produit.stock }}</p>
 <p><strong>Ajouté le :</strong> {{ produit.created_at|date:"d M Y" }}</p>
 
+<form method="post" action="{% url 'add_to_cart' produit.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+</form>
+
+
 <p><a href="{% url 'product_list' %}">← Retour à la boutique</a></p>
 {% endblock %}

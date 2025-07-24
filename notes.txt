@@ -12,7 +12,8 @@ Utilisation des modules Faker et Django-seed pour les produits
 -------------------
 FONCTIONNALITES
 ✅ - Connexion de l'utilisateur
-- Ajouter / Supprimer des articles dans le panier
+✅ - Inscription
+✅ - Ajouter / Supprimer des articles dans le panier
 - Paiement : clic sur payer qui vide le panier et change le statut de commande
 
 PAGES

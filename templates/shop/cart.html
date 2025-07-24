@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Panier{% endblock %}
+
+{% block content %}
+<h1>Votre panier</h1>
+
+{% if items %}
+<ul>
+    {% for item in items %}
+    <li>
+        {{ item.product.title }} (x{{ item.quantity }}) — {{ item.subtotal }} €
+        <form action="{% url 'remove_from_cart' item.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Supprimer</button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+<p><strong>Total :</strong> {{ total }} €</p>
+{% else %}
+<p>Votre panier est vide.</p>
+{% endif %}
+
+<a href="{% url 'product_list' %}">← Continuer vos achats</a>
+{% endblock %}

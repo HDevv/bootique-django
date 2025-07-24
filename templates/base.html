@@ -15,18 +15,18 @@
         <nav>
             <ul>
                 {% if user.is_authenticated %}
-                <li>Bonjour {{ user.username }}</li>
-
+                Bonjour {{ user.username }}
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button type="submit">Déconnexion</button>
                 </form>
-
                 <li><a href="{% url 'cart' %}">Panier</a></li>
                 <li><a href="{% url 'account' %}">Mon compte</a></li>
                 {% else %}
                 <li><a href="{% url 'login' %}">Connexion</a></li>
+                <li><a href="{% url 'signup' %}">Inscription</a></li>
                 {% endif %}
+
             </ul>
         </nav>
     </header>

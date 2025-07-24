@@ -26,8 +26,6 @@
 
 {% if produits %}
 <ul>
-    <li><img src="{{ product.image }}" alt="{{ product.title }}" style="width:100%; max-width:600px;">
-    </li>
     {% for p in produits %}
     <li>
         <a href="{% url 'product_detail' p.pk %}">{{ p.title }}</a>
