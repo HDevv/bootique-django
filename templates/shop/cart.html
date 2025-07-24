@@ -18,6 +18,12 @@
     {% endfor %}
 </ul>
 
+<form method="post" action="{% url 'pay_order' %}">
+    {% csrf_token %}
+    <button type="submit" class="pay-button">Payer</button>
+</form>
+
+
 <p><strong>Total :</strong> {{ total }} €</p>
 {% else %}
 <p>Votre panier est vide.</p>

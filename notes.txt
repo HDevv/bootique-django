@@ -19,9 +19,9 @@ FONCTIONNALITES
 PAGES
 ✅ - Homepage avec liste des produits + filtre par catégories
 ✅ - page article
-- page de connexion
-- panier
-- page compte client
+✅ - page de connexion
+✅ - panier
+✅ - page compte client
 
 
 SUITE

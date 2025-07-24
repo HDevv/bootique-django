@@ -6,7 +6,7 @@ from .models import Product, Category, CartItem
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
-
+from .models import CartItem, Order
 
 # LOGIN
 class InscriptionView(FormView):
@@ -24,6 +24,7 @@ class ProductListView(ListView):
     model = Product
     template_name = 'produits/product_list.html'
     context_object_name = 'produits'
+    paginate_by = 20
 
     def get_queryset(self):
         qs = Product.objects.all()
@@ -80,3 +81,22 @@ class RemoveFromCartView(LoginRequiredMixin, View):
         item = get_object_or_404(CartItem, id=item_id, user=request.user)
         item.delete()
         return redirect('cart')
+    
+# PAIEMENT 
+class PayOrderView(LoginRequiredMixin, View):
+    def post(self, request):
+        items = CartItem.objects.filter(user=request.user)
+        if not items.exists():
+            return redirect('cart')
+
+        order = Order.objects.create(user=request.user, is_paid=True)
+        order.items.set(items)
+        order.save()
+
+        # Supp articles du panier
+        items.delete()
+
+        return redirect('order_confirmation')  # page de confirmation de paiement 
+    
+class OrderConfirmationView(TemplateView):
+    template_name = "shop/order_confirmation.html"

@@ -1,39 +1,40 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Produits{% endblock title %}
 
 {% block content %}
-<h2>Produits</h2>
+<div class="container">
+    <h2 class="page-title">Nos produits</h2>
 
-<!-- Filtre catégorie -->
-<form method="get">
-    <label for="category">Catégorie :</label>
-    <select name="category" onchange="this.form.submit()">
-        <option value="">Toutes</option>
-        {% for cat in categories %}
-        <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>
-            {{ cat.name }}
-        </option>
+    <!-- Filtre catégorie -->
+    <form method="get" class="filter-form">
+        <label for="category">Catégories :</label>
+        <select name="category" onchange="this.form.submit()">
+            <option value="">Toutes</option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>
+                {{ cat.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <hr>
+
+    {% if produits %}
+    <div class="product-grid">
+        {% for p in produits %}
+        <div class="product-card">
+            <img src="{{ p.image }}" alt="{{ p.title }}">
+            <h3><a href="{% url 'product_detail' p.pk %}">{{ p.title }}</a></h3>
+            <p>{{ p.price }} €</p>
+        </div>
         {% endfor %}
-    </select>
+    </div>
+	
 
-
-
-
-</form>
-
-
-<hr>
-
-{% if produits %}
-<ul>
-    {% for p in produits %}
-    <li>
-        <a href="{% url 'product_detail' p.pk %}">{{ p.title }}</a>
-        — {{ p.price }} €
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>Aucun produit disponible.</p>
-{% endif %}
-{% endblock content %}
+    {% else %}
+    <p>Aucun produit disponible.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,291 @@
+:root {
+    --primary-color: #ff6f00;
+    --secondary-color: #fff3e0;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --bg-color: #f9f9f9;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    padding: 2em;
+    max-width: 960px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border-radius: 5px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+}
+
+button, .btn {
+    background-color: var(--primary-color);
+    border: none;
+    color: white;
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+button:hover, .btn:hover {
+    background-color: #e65100;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+
+/* HEADER */
+header {
+    background-color: #ebebeb;
+    color: white;
+    padding: 1rem 2rem;
+    border-bottom: solid 1px #333;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 10px 20px;
+    color: white;
+}
+
+.nav-container h1 {
+    margin: 0;
+    color: #e65100;
+    text-decoration: none;
+}
+
+.top-nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.top-nav li {
+    font-weight: bold;
+}
+.top-nav span {
+    color: #484746;
+}
+
+.top-nav form {
+    display: inline;
+}
+
+.top-nav a {
+    color: rgb(228, 128, 12);
+    text-decoration: none;
+}
+
+
+/* FOOTER */
+footer {
+    background-color: #f2f2f2;
+    padding: 40px 20px 20px;
+    margin-top: 40px;
+    color: #333;
+    font-size: 14px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.footer-col {
+    flex: 1 1 200px;
+}
+.footer-col a:hover {
+    color: #ff6600;
+}
+
+.footer-col h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #ff6600;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-col a {
+    color: #484746;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+    text-decoration: none;
+}
+
+
+/* LISTE PRODUITS */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page-title {
+    color: #ff6600;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form select {
+    padding: 6px 10px;
+    font-size: 1rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-card .price {
+    color: #ff6600;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* PANIER  */
+.pay-button {
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* CONNEXION / LOGIN */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    text-align: center;
+    color: #ff6600;
+    margin-bottom: 20px;
+}
+
+.auth-form p {
+    margin-bottom: 15px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #e65c00;
+}
+
+.form-note {
+    text-align: center;
+    margin-top: 15px;
+}

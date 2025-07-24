@@ -1,6 +1,20 @@
-<h2>Connexion</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Se connecter</button>
-</form>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Connexion</h2>
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-primary">Se connecter</button>
+    </form>
+
+    <p class="form-note">Pas encore de compte ?
+        <a href="{% url 'signup' %}">Inscrivez-vous ici</a>
+    </p>
+</div>
+{% endblock %}

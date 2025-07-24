@@ -3,32 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}Bootique{% endblock title %}</title>
+    <title>{% block title %}leboncoincoin{% endblock title %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Font Awesome (icônes) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
 
     <header>
-        <h1><a href="{% url 'home' %}">Boutique</a></h1>
-        <nav>
-            <ul>
-                {% if user.is_authenticated %}
-                Bonjour {{ user.username }}
-                <form action="{% url 'logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Déconnexion</button>
-                </form>
-                <li><a href="{% url 'cart' %}">Panier</a></li>
-                <li><a href="{% url 'account' %}">Mon compte</a></li>
-                {% else %}
-                <li><a href="{% url 'login' %}">Connexion</a></li>
-                <li><a href="{% url 'signup' %}">Inscription</a></li>
-                {% endif %}
+        <div class="nav-container">
+            <h1><a href="{% url 'home' %}">leboncoincoin</a></h1>
 
-            </ul>
-        </nav>
+            <!-- Navigation globale -->
+            <nav class="top-nav">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><span>Bonjour {{ user.username }} !</span></li>
+                    <li><a href="{% url 'cart' %}">Panier</a></li>
+                    <li><a href="{% url 'account' %}">Mon compte</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Déconnexion</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                    <li><a href="{% url 'signup' %}">Inscription</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
     </header>
 
     {% if messages %}
@@ -46,8 +54,53 @@
     </main>
 
     <footer>
-        <p>&copy; {{ now|date:"Y" }} Bootique.</p>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4><i class="fas fa-store"></i> À propos</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> Qui sommes-nous</a></li>
+                    <li><a href="#"><i class="fas fa-gavel"></i> Conditions générales</a></li>
+                    <li><a href="#"><i class="fas fa-user-secret"></i> Confidentialité</a></li>
+                    <li><a href="#"><i class="fas fa-balance-scale"></i> Mentions légales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4><i class="fas fa-question-circle"></i> Aide</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-question"></i> FAQ</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-truck"></i> Livraison</a></li>
+                    <li><a href="#"><i class="fas fa-undo-alt"></i> Retour</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4><i class="fas fa-user"></i> Compte</h4>
+                <ul>
+                    <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Connexion</a></li>
+                    <li><a href="{% url 'signup' %}"><i class="fas fa-user-plus"></i> Créer un compte</a></li>
+                    <li><a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i> Mon panier</a></li>
+                    <li><a href="{% url 'account' %}"><i class="fas fa-user-cog"></i> Mon compte</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4><i class="fas fa-share-alt"></i> Suivez-nous</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook-square"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; {{ now|date:"Y" }} Le Bon Coin Coin. Tous droits réservés.</p>
+        </div>
     </footer>
+
+
 
 </body>
 

@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import ProductListView, ProductDetailView, CartView, AccountView, AddToCartView, RemoveFromCartView
+from .views import OrderConfirmationView, PayOrderView
 from django.contrib.auth import views as auth_views
 from .views import InscriptionView
 
@@ -16,6 +17,8 @@ urlpatterns = [
     path('cart/', CartView.as_view(), name='cart'),
     path('cart/add/<int:product_id>/', AddToCartView.as_view(), name='add_to_cart'),
     path('cart/remove/<int:item_id>/', RemoveFromCartView.as_view(), name='remove_from_cart'),
+    path('payer/', PayOrderView.as_view(), name='pay_order'),
+    path('confirmation/', OrderConfirmationView.as_view(), name='order_confirmation'),
     
     # LOGIN
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
