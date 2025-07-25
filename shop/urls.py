@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ProductListView, ProductDetailView, CartView, AccountView, AddToCartView, RemoveFromCartView
-from .views import OrderConfirmationView, PayOrderView
+from .views import OrderConfirmationView, PayOrderView, DashboardView, NotificationListView
 from django.contrib.auth import views as auth_views
 from .views import InscriptionView
 
@@ -25,4 +25,12 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('account/', AccountView.as_view(), name='account'),
     path("signup/", InscriptionView.as_view(), name="signup"),
+
+    # TABLEAU DE BORD 
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+
+    # NOTIFICATIONS
+    path('notifications/', NotificationListView.as_view(), name='notifications'),
+
+
 ]

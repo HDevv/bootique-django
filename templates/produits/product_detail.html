@@ -4,25 +4,144 @@
 {% block title %}{{ produit.title }}{% endblock %}
 
 {% block content %}
-<h1>{{ produit.title }}</h1>
+<style>
+    .product-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        gap: 2rem;
+    }
 
-{% if produit.image %}
-<img src="{{ produit.image }}" alt="{{ produit.title }}" width="300" height="200">
-{% else %}
-<p>Pas d’image disponible</p>
-{% endif %}
+    @media (min-width: 768px) {
+        .product-container {
+            flex-direction: row;
+        }
+    }
 
-<p>{{ produit.description }}</p>
+    .product-image {
+        flex: 1;
+        text-align: center;
+    }
 
-<p><strong>Prix :</strong> {{ produit.price }} €</p>
-<p><strong>Stock :</strong> {{ produit.stock }}</p>
-<p><strong>Ajouté le :</strong> {{ produit.created_at|date:"d M Y" }}</p>
+    .product-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-<form method="post" action="{% url 'add_to_cart' produit.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Ajouter au panier</button>
-</form>
+    .product-details {
+        flex: 1;
+    }
+
+    .product-details h1 {
+        font-size: 2rem;
+        color: #f97316;
+        /* orange */
+        margin-bottom: 1rem;
+        text-transform: capitalize;
+    }
+
+    .product-details p.description {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .info-line {
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .info-line i {
+        color: #f97316;
+        min-width: 20px;
+    }
+
+    .btn-add {
+        background: #f97316;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        transition: background 0.3s ease;
+    }
+
+    .btn-add:hover {
+        background: #ea580c;
+    }
+
+    .back-link {
+        margin-top: 1.5rem;
+        display: inline-block;
+        color: #6b21a8;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
 
 
-<p><a href="{% url 'product_list' %}">← Retour à la boutique</a></p>
+<div class="product-container">
+    <!-- Image -->
+    <div class="product-image">
+        {% if produit.image %}
+        <img src="{{ produit.image }}" alt="{{ produit.title }}">
+        {% else %}
+        <p>Pas d’image disponible</p>
+
+        {% endif %}
+    </div>
+
+    <!-- Détails -->
+    <div class="product-details">
+        <h1>{{ produit.title }}</h1>
+
+        <p class="description">{{ produit.description }}</p>
+
+        <div class="info-line">
+            <i class="fas fa-euro-sign"></i>
+            <strong>Prix :</strong> {{ produit.price }} €
+        </div>
+
+        <div class="info-line">
+            <i class="fas fa-box-open"></i>
+            <strong>Stock :</strong> {{ produit.stock }}
+        </div>
+
+        <div class="info-line">
+            <i class="fas fa-calendar-alt"></i>
+            <strong>Ajouté le :</strong> {{ produit.created_at|date:"d M Y" }}
+        </div>
+
+        <form method="post" action="{% url 'add_to_cart' produit.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-add">
+                <i class="fas fa-cart-plus"></i> Ajouter au panier
+            </button>
+        </form>
+
+
+
+        <a href="{% url 'product_list' %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Retour à la boutique
+        </a>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Mes notifications</h2>
+
+    {% if notifications %}
+    <ul>
+        {% for notif in notifications %}
+        <li class="{% if not notif.is_read %}unread{% endif %}">
+            {{ notif.message }} – {{ notif.created_at|date:"d/m/Y H:i" }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Aucune notification.</p>
+    {% endif %}
+</div>
+{% endblock %}

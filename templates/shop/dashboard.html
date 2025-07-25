@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% load l10n %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Tableau de bord administrateur</h2>
+
+    <p><strong>Chiffre d'affaires :</strong> {{ total_ca | floatformat:2 | localize }} €</p>
+
+    <h3 style="color: #ff6600;">Commandes validées</h3>
+
+    {% if orders %}
+    <table
+        style="width: 100%; border-collapse: collapse; margin-top: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden;">
+        <thead>
+            <tr style="background-color: #ff6600; color: white; text-align: left;">
+                <th style="padding: 12px 16px;">ID</th>
+                <th style="padding: 12px 16px;">Utilisateur</th>
+                <th style="padding: 12px 16px;">Date</th>
+                <th style="padding: 12px 16px;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr class="{% cycle 'row-light' 'row-dark' %}">
+                <td style="padding: 10px 16px; border-bottom: 1px solid #eee;">{{ order.id }}</td>
+                <td style="padding: 10px 16px; border-bottom: 1px solid #eee;">{{ order.user.username }}</td>
+                <td style="padding: 10px 16px; border-bottom: 1px solid #eee;">{{ order.created_at|date:"d/m/Y H:i" }}
+                </td>
+                <td style="padding: 10px 16px; border-bottom: 1px solid #eee;">{{ order.total|floatformat:2|localize }}
+                    €</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <p>Aucune commande validée.</p>
+    {% endif %}
+</div>
+{% endblock %}

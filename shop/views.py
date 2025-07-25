@@ -2,11 +2,12 @@ from django.views.generic import ListView, DetailView, TemplateView, FormView
 from .forms import InscriptionForm
 from django.urls import reverse_lazy
 from django.contrib.auth import login
-from .models import Product, Category, CartItem
+from .models import Product, Category, CartItem, OrderItem, Order, Notification
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CartItem, Order
+from django.utils.decorators import method_decorator
 
 # LOGIN
 class InscriptionView(FormView):
@@ -38,6 +39,10 @@ class ProductListView(ListView):
         selected = self.request.GET.get('category')  # en str
         context['selected_category'] = selected
         context['categories'] = Category.objects.all()
+        if self.request.user.is_authenticated:
+            context['has_unread_notifications'] = Notification.objects.filter(
+                user=self.request.user, is_read=False
+            ).exists()
         return context
 
 
@@ -46,10 +51,6 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'produits/product_detail.html'
     context_object_name = 'produit'
-
-# Panier
-class CartView(TemplateView):
-    template_name = 'cart.html'
 
     
 class AccountView(LoginRequiredMixin, TemplateView):
@@ -90,13 +91,40 @@ class PayOrderView(LoginRequiredMixin, View):
             return redirect('cart')
 
         order = Order.objects.create(user=request.user, is_paid=True)
-        order.items.set(items)
-        order.save()
 
-        # Supp articles du panier
+        # 👇 C’est ici que l'on doit bien créer les OrderItem
+        for item in items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price  
+            )
+
+        # Ensuite on peut vider le panier
         items.delete()
 
-        return redirect('order_confirmation')  # page de confirmation de paiement 
+        return redirect('order_confirmation')
     
 class OrderConfirmationView(TemplateView):
     template_name = "shop/order_confirmation.html"
+
+# TABLEAU DE BORD 
+@method_decorator(staff_member_required, name='dispatch')
+class DashboardView(TemplateView):
+    template_name = "shop/dashboard.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = Order.objects.paid()
+        context['total_ca'] = Order.objects.total_ca()
+        return context
+    
+# NOTIFS
+class NotificationListView(LoginRequiredMixin, ListView):
+    model = Notification
+    template_name = 'shop/notifications.html'
+    context_object_name = 'notifications'
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user).order_by('-created_at')

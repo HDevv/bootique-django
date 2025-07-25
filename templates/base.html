@@ -5,13 +5,17 @@
     <meta charset="utf-8">
     <title>{% block title %}leboncoincoin{% endblock title %}</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <!-- Font Awesome (icônes) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
 </head>
 
 <body>
+
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+    </div>
 
     <header>
         <div class="nav-container">
@@ -22,6 +26,21 @@
                 <ul>
                     {% if user.is_authenticated %}
                     <li><span>Bonjour {{ user.username }} !</span></li>
+
+                    {% if user.is_superuser %}
+                    <li class="notification-icon">
+                        <a href="{% url 'notifications' %}">
+                            🔔
+                            {% if has_unread_notifications %}
+                            <span class="notif-dot"></span>
+                            {% endif %}
+
+                        </a>
+                    </li>
+
+                    <li><a href="{% url 'dashboard' %}">Tableau de bord</a></li>
+                    {% endif %}
+
                     <li><a href="{% url 'cart' %}">Panier</a></li>
                     <li><a href="{% url 'account' %}">Mon compte</a></li>
                     <li>
@@ -34,6 +53,7 @@
                     <li><a href="{% url 'login' %}">Connexion</a></li>
                     <li><a href="{% url 'signup' %}">Inscription</a></li>
                     {% endif %}
+
                 </ul>
             </nav>
         </div>
@@ -96,10 +116,15 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; {{ now|date:"Y" }} Le Bon Coin Coin. Tous droits réservés.</p>
+            <p>&copy; {{ now|date:"Y" }} leboncoincoin. Tous droits réservés.</p>
         </div>
     </footer>
 
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
 
 
 </body>
